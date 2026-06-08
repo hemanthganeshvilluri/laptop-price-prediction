@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptop Price Appraisal Engine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        select, input[type="text"], input[type="number"] {
+            background-color: #374151; /* bg-gray-700 */
+            border: 1px solid #4b5563; /* border-gray-600 */
+            color: #f9fafb; /* text-gray-50 */
+        }
+        select:focus, input:focus {
+            outline: none;
+            border-color: #3b82f6; /* border-blue-500 */
+        }
+        select {
+            background-image: url("data:image/svg+xml;utf8,<svg fill='%239ca3af' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+            background-size: 1.5em;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            padding-right: 2rem !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans min-h-screen">
+
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-400 tracking-tight">
+                Laptop Price Appraisal Engine
+            </h1>
+            <p class="text-gray-400 mt-2 text-sm">Full Feature Set Pipeline Matrix • SQLite Production Database</p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <div class="lg:col-span-7 bg-gray-800 p-6 rounded-2xl border border-gray-700 shadow-xl space-y-6">
+                <h2 class="text-xl font-bold text-blue-400 border-b border-gray-700 pb-2">Hardware Specifications Map</h2>
+                
+                <form id="appraisalForm" class="space-y-4">
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Brand Name</label>
+                            <select id="brand" class="w-full rounded-lg px-3 py-2 text-sm">
+                                <option value="ASUS">ASUS</option>
+                                <option value="Lenovo">Lenovo</option>
+                                <option value="HP">HP</option>
+                                <option value="DELL">DELL</option>
+                                <option value="acer">Acer</option>
+                                <option value="MSI">MSI</option>
+                                <option value="APPLE">Apple</option>
+                                <option value="Avita">Avita</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Weight Profile</label>
+                            <select id="weight" class="w-full rounded-lg px-3 py-2 text-sm">
+                                <option value="Casual">Casual Laptop</option>
+                                <option value="ThinNlight">Thin & Light</option>
+                                <option value="Gaming">Gaming Laptop</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Processor Model</label>
+                            <select id="processor_name" class="w-full rounded-lg px-3 py-2 text-sm">
+                                <option value="Core i5">Intel Core i5</option>
+                                <option value="Core i3">Intel Core i3</option>
+                                <option value="Core i7">Intel Core i7</option>
+                                <option value="Core i9">Intel Core i9</option>
+                                <option value="Ryzen 5">AMD Ryzen 5</option>
+                                <option value="Ryzen 3">AMD Ryzen 3</option>
+                                <option value="Ryzen 7">AMD Ryzen 7</option>
+                                <option value="Ryzen 9">AMD Ryzen 9</option>
+                                <option value="Celeron Dual">Celeron Dual</option>
+                                <option value="Pentium Quad">Pentium Quad</option>
+                                <option value="M1">Apple M1</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">CPU Generation</label>
+                            <select id="processor_gnrtn" class="w-full rounded-lg px-3 py-2 text-sm">
+                                <option value="11th">11th Gen</option>
+                                <option value="12th">12th Gen</option>
+                                <option value="10th">10th Gen</option>
+                                <option value="8th">8th Gen</option>
+                                <option value="7th">7th Gen</option>
+                                <option value="9th">9th Gen</option>
+                                <option value="Not Available">Not Available / AMD / M1</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Processor Brand</label>
+                            <select id="processor_brand" class="w-full rounded-lg px-3 py-2 text-sm bg-gray-600 border-gray-500 cursor-not-allowed" readonly>
+                                <option value="Intel">Intel</option>
+                                <option value="AMD">AMD</option>
+                                <option value="M1">Apple</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">RAM Size</label>
+                            <select id="ram_gb" class="w-full rounded-lg px-3 py-2 text-sm">
+                                <option value="8 GB">8 GB</option>
+                                <option value="4 GB">4 GB</option>
+                                <option value="16 GB">16 GB</option>
+                                <option value="32 GB">32 GB</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">RAM Type</label>
+                            <select id="ram_type" class="w-full rounded-lg px-3 py-2 text-sm">
+                                <option value="DDR4">DDR4</option>
+                                <option value="DDR5">DDR5</option>
+                                <option value="LPDDR4X">LPDDR4X</option>
+                                <option value="LPDDR4">LPDDR4</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">SSD Storage</label>
+                            <select id="ssd" class="w-full rounded-lg px-3 py-2 text-sm">
+                                <option value="512 GB">512 GB</option>
+                                <option value="0 GB">0 GB</option>
+                                <option value="128 GB">128 GB</option>
+                                <option value="256 GB">256 GB</option>
+                                <option value="1024 GB">1 TB (1024 GB)</option>
+                                <option value="2048 GB">2 TB (2048 GB)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">HDD Storage</label>
+                            <select id="hdd" class="w-full rounded-lg px-3 py-2 text-sm">
+                                <option value="0 GB">0 GB</option>
+                                <option value="512 GB">512 GB</option>
+                                <option value="1024 GB">1 TB (1024 GB)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Operating System</label>
+                            <select id="os" class="w-full rounded-lg px-3 py-2 text-sm">
+                                <option value="Windows">Windows</option>
+                                <option value="DOS">DOS</option>
+                                <option value="Mac">Mac OS</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">OS Architecture</label>
+                            <select id="os_bit" class="w-full rounded-lg px-3 py-2 text-sm">
+                                <option value="64-bit">64-bit</option>
+                                <option value="32-bit">32-bit</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Dedicated VRAM</label>
+                            <select id="graphic_card_gb" class="w-full rounded-lg px-3 py-2 text-sm">
+                                <option value="0 GB">0 GB (Integrated)</option>
+                                <option value="2 GB">2 GB</option>
+                                <option value="4 GB">4 GB</option>
+                                <option value="6 GB">6 GB</option>
+                                <option value="8 GB">8 GB</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Warranty Period</label>
+                            <select id="warranty" class="w-full rounded-lg px-3 py-2 text-sm">
+                                <option value="1 year">1 Year Warranty</option>
+                                <option value="No warranty">No Warranty</option>
+                                <option value="2 years">2 Years Warranty</option>
+                                <option value="3 years">3 Years Warranty</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Touchscreen Panel</label>
+                            <select id="Touchscreen" class="w-full rounded-lg px-3 py-2 text-sm">
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">MS Office Included</label>
+                            <select id="msoffice" class="w-full rounded-lg px-3 py-2 text-sm">
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 border-t border-gray-700 pt-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Star Rating</label>
+                            <select id="rating" class="w-full rounded-lg px-3 py-2 text-sm">
+                                <option value="4 stars">4 Stars</option>
+                                <option value="3 stars">3 Stars</option>
+                                <option value="5 stars">5 Stars</option>
+                                <option value="1 star">1 Star</option>
+                                <option value="2 stars">2 Stars</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Number of Ratings</label>
+                            <input type="number" id="num_ratings" value="120" min="0" class="w-full bg-gray-700 rounded-lg px-3 py-2 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Number of Reviews</label>
+                            <input type="number" id="num_reviews" value="18" min="0" class="w-full bg-gray-700 rounded-lg px-3 py-2 text-sm">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 text-white font-bold py-3 rounded-xl text-sm font-semibold transition tracking-wide shadow-lg pt-2">
+                        Execute Complete Pipeline Evaluation
+                    </button>
+                </form>
+            </div>
+
+            <div class="lg:col-span-5 space-y-6">
+                
+                <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700 shadow-xl">
+                    <h2 class="text-xl font-bold text-teal-400 mb-4">Valuation Range Assessment</h2>
+                    <div class="space-y-4">
+                        <div class="bg-blue-950/40 border border-blue-800 p-4 rounded-xl text-center ring-4 ring-blue-500/10">
+                            <span class="text-xs font-semibold text-blue-400 uppercase tracking-wider">Estimated Fair Market Value (Median)</span>
+                            <span id="resMedian" class="text-4xl font-black text-blue-300 tracking-tight mt-1 block">--</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-gray-700/40 border border-gray-600 p-3 rounded-xl text-center">
+                                <span class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block">Bargain Floor (15%)</span>
+                                <span id="resFloor" class="text-xl font-bold text-gray-300 mt-1 block">--</span>
+                            </div>
+                            <div class="bg-gray-700/40 border border-gray-600 p-3 rounded-xl text-center">
+                                <span class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block">Premium Ceiling (85%)</span>
+                                <span id="resCeiling" class="text-xl font-bold text-gray-300 mt-1 block">--</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="metaLog" class="text-[11px] text-gray-500 mt-4 text-right hidden">
+                        Database Commit Serial Key: #<span id="logId" class="font-mono font-bold text-purple-400">N/A</span>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700 shadow-xl">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="text-lg font-bold text-purple-400">Database Transaction Log</h2>
+                        <button id="refreshHistory" class="text-[11px] bg-gray-700 hover:bg-gray-600 border border-gray-600 px-2.5 py-1 rounded-md text-gray-300 transition">
+                            Sync Audit
+                        </button>
+                    </div>
+                    <div class="overflow-y-auto max-h-[290px] pr-1">
+                        <table class="w-full text-left text-xs text-gray-400">
+                            <thead class="bg-gray-700 text-gray-300 sticky top-0 uppercase tracking-wider text-[10px]">
+                                <tr>
+                                    <th class="px-3 py-2 rounded-l-md">ID</th>
+                                    <th class="px-3 py-2">Specs Target</th>
+                                    <th class="px-3 py-2 text-center text-blue-400">Median Value</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyTableBody" class="divide-y divide-gray-700/60">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = "http://127.0.0.1:8000";
+
+        // Macro mapping matrix mapping choices automatically to safe-proof target pipelines
+        function syncProcessorBrand() {
+            const cpu = document.getElementById("processor_name").value;
+            const cpuGen = document.getElementById("processor_gnrtn");
+            const brandSelect = document.getElementById("processor_brand");
+
+            if (cpu.includes("Ryzen")) {
+                brandSelect.value = "AMD";
+                cpuGen.value = "Not Available";
+            } else if (cpu.includes("M1")) {
+                brandSelect.value = "M1";
+                cpuGen.value = "Not Available";
+            } else {
+                brandSelect.value = "Intel";
+                if(cpuGen.value === "Not Available") cpuGen.value = "11th";
+            }
+        }
+
+        document.getElementById("processor_name").addEventListener("change", syncProcessorBrand);
+
+        // --- FETCH COMMITTED LOGS FROM DB ---
+        async function loadAuditHistory() {
+            try {
+                const response = await fetch(`${API_BASE}/history?limit=10`);
+                if (!response.ok) throw new Error("Connection broken with core backend engine");
+                const data = await response.json();
+                
+                const tbody = document.getElementById("historyTableBody");
+                tbody.innerHTML = ""; 
+
+                if(data.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="3" class="text-center py-6 text-gray-600 italic">Storage empty. Run your first appraisal...</td></tr>`;
+                    return;
+                }
+
+                data.forEach(row => {
+                    const tr = document.createElement("tr");
+                    tr.className = "hover:bg-gray-700/30 transition border-b border-gray-700/30";
+                    tr.innerHTML = `
+                        <td class="px-3 py-2.5 font-mono text-purple-400 font-bold">#${row.id}</td>
+                        <td class="px-3 py-2.5">
+                            <span class="font-medium text-gray-200">${row.brand}</span> <span class="text-gray-400 text-[11px]">${row.processor_name} (${row.ram_gb}G/${row.ssd_gb || '0'}G)</span>
+                        </td>
+                        <td class="px-3 py-2.5 text-center font-mono font-bold text-blue-400">₹${row.predicted_median.toLocaleString()}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch (err) {
+                console.error("Audit historical trace fetching failed: ", err);
+            }
+        }
+
+        // --- PIPELINE DEPLOYMENT POST TRANSACTION SUBMIT ---
+        document.getElementById("appraisalForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            const payload = {
+                brand: document.getElementById("brand").value,
+                processor_brand: document.getElementById("processor_brand").value,
+                processor_name: document.getElementById("processor_name").value,
+                processor_gnrtn: document.getElementById("processor_gnrtn").value,
+                ram_gb: document.getElementById("ram_gb").value,
+                ram_type: document.getElementById("ram_type").value,
+                ssd: document.getElementById("ssd").value,
+                hdd: document.getElementById("hdd").value,
+                os: document.getElementById("os").value,
+                os_bit: document.getElementById("os_bit").value,
+                graphic_card_gb: document.getElementById("graphic_card_gb").value,
+                weight: document.getElementById("weight").value,
+                warranty: document.getElementById("warranty").value,
+                Touchscreen: document.getElementById("Touchscreen").value,
+                msoffice: document.getElementById("msoffice").value,
+                rating: document.getElementById("rating").value,
+                "Number of Ratings": parseFloat(document.getElementById("num_ratings").value || 0),
+                "Number of Reviews": parseFloat(document.getElementById("num_reviews").value || 0)
+            };
+
+            try {
+                const response = await fetch(`${API_BASE}/appraise`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) throw new Error("Inference execution rejected");
+                const resData = await response.json();
+
+                // Hydrate dashboard counters
+                document.getElementById("resFloor").innerText = `₹${resData.pricing_appraisal.bargain_floor_15th.toLocaleString()}`;
+                document.getElementById("resMedian").innerText = `₹${resData.pricing_appraisal.fair_market_median_50th.toLocaleString()}`;
+                document.getElementById("resCeiling").innerText = `₹${resData.pricing_appraisal.premium_ceiling_85th.toLocaleString()}`;
+                
+                document.getElementById("logId").innerText = resData.transaction_metadata.saved_log_id;
+                document.getElementById("metaLog").classList.remove("hidden");
+
+                // Auto-refresh the log output
+                loadAuditHistory();
+
+            } catch (err) {
+                alert("Transaction failed! Make sure your FastAPI app server is running on port 8000.");
+                console.error(err);
+            }
+        });
+
+        // App bootstrap triggers
+        document.getElementById("refreshHistory").addEventListener("click", loadAuditHistory);
+        window.addEventListener("DOMContentLoaded", () => {
+            syncProcessorBrand();
+            loadAuditHistory();
+        });
+    </script>
+</body>
+</html>
