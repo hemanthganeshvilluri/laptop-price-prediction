@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 import joblib
 from sklearn.base import BaseEstimator, TransformerMixin
-from sqlalchemy import create_engine, Column, Integer, string, Float
+from sqlalchemy import create_engine, Column, Integer, String, Float
 from sqlalchemy.orm import sessionmaker, declarative_base, Session
 import datetime
 
@@ -16,9 +16,9 @@ base = declarative_base()
 class prediction_record(base):
     __tablename__ = 'predictions'
     id = Column(Integer, primary_key=True, index=True)
-    timestamp = Column(string, default=datetime.datetime.utcnow)
-    brand = Column(string, index = True)
-    processor_name = Column(string)
+    timestamp = Column(String, default=datetime.datetime.utcnow)
+    brand = Column(String, index = True)
+    processor_name = Column(String)
     ram_gb = Column(Integer)
     ssd_gb = Column(Integer)
     pred_floor = Column(Float)
