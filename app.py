@@ -74,7 +74,7 @@ class feature_engineering(BaseEstimator, TransformerMixin):
         if 'rating' in h.columns:
             h['rating'] = h['rating'].astype(str).apply(lambda x: int(x.split()[0] if len(x.split()) > 0 else 0))
         return h
-
+__main__.feature_engineering = feature_engineering
 try:
     model_low = joblib.load('model_low.joblib')
     model_medium = joblib.load('model_medium.joblib')
