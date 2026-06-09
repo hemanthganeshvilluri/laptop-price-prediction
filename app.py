@@ -78,7 +78,7 @@ class feature_engineering(BaseEstimator, TransformerMixin):
 sys.modules['__main__'].feature_engineering = feature_engineering
 try:
     model_low = joblib.load('model_low.joblib')
-    model_medium = joblib.load('model_medium.joblib')
+    model_medium = joblib.load('model_med.joblib')
     model_high = joblib.load('model_high.joblib')
 except Exception as e:
     raise RuntimeError(f"Error loading models: {e}")
