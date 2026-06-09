@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 import pandas as pd
 import numpy as np
@@ -104,18 +105,23 @@ class laptop_specs(BaseModel):
     Number_of_Reviews: float = Field(..., alias="Number of Reviews", example=30.0)
     class config:
         populate_by_name = True
+@app.get("/")
+def serve_home_ui():
+    return FileResponse("index.html")
 
 @app.post("/predict", status_code=200)
 def predict_price(laptop: laptop_specs, db: Session = Depends(get_db)):
     try:
         raw_data = laptop.model_dump(by_alias=True)
-        input = pd.DataFrame([raw_data])
-        floor = float(model_low.predict(input)[0])
-        median = float(model_medium.predict(input)[0])
-        ceiling = float(model_high.predict(input)[0])
+        input_df = pd.DataFrame([raw_data])
+        
+        floor = float(model_low.predict(input_df)[0])
+        median = float(model_medium.predict(input_df)[0])
+        ceiling = float(model_high.predict(input_df)[0])
+        
         if not(floor <= median <= ceiling):
             floor, median, ceiling = sorted([floor, median, ceiling])
-        
+            
         db_record = prediction_record(
             brand = laptop.brand,
             processor_name = laptop.processor_name,
@@ -128,6 +134,7 @@ def predict_price(laptop: laptop_specs, db: Session = Depends(get_db)):
         db.add(db_record)
         db.commit()
         db.refresh(db_record)
+        
         return {
             "status": "success",
             "transaction_metadata": {
@@ -135,9 +142,9 @@ def predict_price(laptop: laptop_specs, db: Session = Depends(get_db)):
                 "timestamp_utc": db_record.timestamp
             },
             "pricing_appraisal": {
-                "bargain_floor_15th": db_record.predicted_floor,
-                "fair_market_median_50th": db_record.predicted_median,
-                "premium_ceiling_85th": db_record.predicted_ceiling
+                "bargain_floor_15th": db_record.pred_floor,
+                "fair_market_median_50th": db_record.pred_median,
+                "premium_ceiling_85th": db_record.pred_ceiling
             }
         }
         
